@@ -1,18 +1,8 @@
-const { GoogleSpreadsheet } = require('google-spreadsheet');
-
-// Spreadsheet key
-const doc = new GoogleSpreadsheet('id');
+const Sheet  = require('./sheet');
 
 (async function(){
-    console.log(doc.title);
-    await doc.updateProperties({
-        title: 'renamed doc'
-    });
+    const sheet = new Sheet();
+    await sheet.load();
 
-    const sheet = doc.sheetdByIndex[0];
-    await sheet.addRows([
-        {title: '', email: ''},
-        {title: '', email: ''}
-    ]);
-
+    
 })();

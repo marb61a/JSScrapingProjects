@@ -1,6 +1,6 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 
-class Sheet {
+module.exports = class Sheet {
     constructor(){
         this.doc = new GoogleSpreadsheet('id');
     }
@@ -8,12 +8,24 @@ class Sheet {
     // Constructor cannot be Async
     async load(){
         // Load credentials from JSON file
-        await doc.useServiceAccountAuth(require('./credentials.json'));
+        await this.doc.useServiceAccountAuth(require('./credentials.json'));
 
         // Load document properties & worksheets
-        await doc.loadInfo();
-        
+        await this.doc.loadInfo();
+    }
+
+    async addRows(rows){
+        const sheet = doc.sheetdByIndex[0];
+        await sheet.addRows(rows);
     }
 }
 
-const sheet = Sheet();
+// (async function(){
+//     const sheet = Sheet();
+//     await sheet.load();
+//     sheet.addRows([
+//         {title: '', email: ''},
+//         {title: '', email: ''}
+//     ]);
+
+// })();
